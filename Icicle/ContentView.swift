@@ -276,16 +276,19 @@ struct LoginAdminView: View {
                 Button("Log In") {
                     if password == "IScream4IceCream" {
                         loggedIn = true
+                        password = "" // Empty the password field
                     }
                 }
                 .padding()
-                
-                
             }
             .navigationTitle("Log In")
         }
+        .onDisappear {
+            password = "" // Empty the password field when navigating away from the view
+        }
+        
         if loggedIn {
-            AdminView() // Pass flavors array here
+            AdminView(loggedIn: $loggedIn) // Pass the binding to the AdminView
                 .tabItem {
                     Image(systemName: "lock.open.fill")
                     Text("Unlocked")
@@ -294,10 +297,10 @@ struct LoginAdminView: View {
     }
 }
 
-
-
 // Administrator view
 struct AdminView: View {
+    @Binding var loggedIn: Bool
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -310,6 +313,10 @@ struct AdminView: View {
                 NavigationLink(destination: EditView()) {
                     Text("Edit")
                 }
+                Button("Log Out") {
+                    loggedIn = false // Update the loggedIn state to false
+                }
+                .padding()
             }
             .navigationTitle("Administrator")
         }
