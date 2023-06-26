@@ -78,24 +78,7 @@ struct FlavorDetailView: View {
     }
 }
 
-// View for logging in
-struct LoginView: View {
-    @State private var password: String = ""
-    
-    var body: some View {
-        VStack {
-            SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-            
-            Button("Log In") {
-                // Handle login logic here
-            }
-            .padding()
-        }
-        .navigationTitle("Log In")
-    }
-}
+
 
 // View for making an order
 struct MakeOrderView: View {
@@ -226,23 +209,7 @@ struct OtherItemsView: View {
     }
 }
 
-// Administrator view
-struct AdminView: View {
-    var body: some View {
-        VStack {
-            NavigationLink(destination: ViewOrdersView()) {
-                Text("View Orders")
-            }
-            NavigationLink(destination: ReportView()) {
-                Text("Report")
-            }
-            NavigationLink(destination: EditView()) {
-                Text("Edit")
-            }
-        }
-        .navigationTitle("Administrator")
-    }
-}
+
 
 // View for viewing orders
 struct ViewOrdersView: View {
@@ -294,6 +261,61 @@ struct EditSectionView: View {
     }
 }
 
+// View for logging in and admin
+struct LoginAdminView: View {
+    @State private var password: String = ""
+    @State private var loggedIn: Bool = false
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                SecureField("Password", text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                Button("Log In") {
+                    if password == "IScream4IceCream" {
+                        loggedIn = true
+                    }
+                }
+                .padding()
+                
+                
+            }
+            .navigationTitle("Log In")
+        }
+        if loggedIn {
+            AdminView() // Pass flavors array here
+                .tabItem {
+                    Image(systemName: "lock.open.fill")
+                    Text("Unlocked")
+                }
+        }
+    }
+}
+
+
+
+// Administrator view
+struct AdminView: View {
+    var body: some View {
+        NavigationView {
+            VStack {
+                NavigationLink(destination: ViewOrdersView()) {
+                    Text("View Orders")
+                }
+                NavigationLink(destination: ReportView()) {
+                    Text("Report")
+                }
+                NavigationLink(destination: EditView()) {
+                    Text("Edit")
+                }
+            }
+            .navigationTitle("Administrator")
+        }
+    }
+}
+
 // Main app view
 struct AppView: View {
     var body: some View {
@@ -310,16 +332,10 @@ struct AppView: View {
                     Text("Make Order")
                 }
             
-            LoginView()
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Log In")
-                }
-            
-            AdminView()
+            LoginAdminView() // LoginAdminView
                 .tabItem {
                     Image(systemName: "lock.fill")
-                    Text("Admin")
+                    Text("Log In")
                 }
         }
     }
