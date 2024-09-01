@@ -29,9 +29,6 @@ The Register App includes the following features:
 - **Report:** A report feature displays important statistics, such as items sold, revenue per day, and total revenue.
 - **Edit:** Administrators can modify different sections, including flavors, sizes, cones, toppings, and other items.
 
-## Screenshots
-
-*Provide screenshots here to showcase the app's interface and functionality.*
 
 ## Getting Started
 
@@ -43,10 +40,6 @@ The Register App includes the following features:
 1. Clone or download the Register App repository.
 2. Open the project in Xcode.
 3. Build and run the app on an iOS simulator or device.
-
-## Usage
-
-*Explain how to use the app, including any important instructions or guidelines.*
 
 ## Contributing
 
